@@ -3,9 +3,9 @@ import React from 'react';
 import Sidebar from './Sidebar';
 
 const Dashboard = () => (
-  <div className="main">
+  <div className="dashboard-container">
     <Sidebar />
-    <main>
+    <div className="main-content">
       <div className="wrapper-main">
         <section id="quick-actions">
           <h2>Welcome, Afika</h2>
@@ -20,7 +20,7 @@ const Dashboard = () => (
           </div>
         </section>
       </div>
-    </main>
+    </div>
   </div>
 );
 

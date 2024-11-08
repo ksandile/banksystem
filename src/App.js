@@ -1,9 +1,9 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './src/components/Home';
-import Signup from './src/components/Signup';
-import Dashboard from './src/components/Dashboard';
+import Home from 'C:\Users\Setu.Xolilizwe\Documents\GitHub\banksystem\src\components\Home.js';
+import Signup from 'C:\Users\Setu.Xolilizwe\Documents\GitHub\banksystem\src\components\SignUp.js';
+import Dashboard from 'C:\Users\Setu.Xolilizwe\Documents\GitHub\banksystem\src\components\Dashboard.js';
 import './styles.css';
 
 const App = () => (

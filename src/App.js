@@ -1,10 +1,11 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from 'C:\Users\Setu.Xolilizwe\Documents\GitHub\banksystem\src\components\Home.js';
-import Signup from 'C:\Users\Setu.Xolilizwe\Documents\GitHub\banksystem\src\components\SignUp.js';
-import Dashboard from 'C:\Users\Setu.Xolilizwe\Documents\GitHub\banksystem\src\components\Dashboard.js';
-import './styles.css';
+import Home from './components/Home.js';
+import Signup from './components/SignUp.js';
+import Dashboard from './components/Dashboard.js';
+import './components/styles.css';
+
 
 const App = () => (
   <Router>

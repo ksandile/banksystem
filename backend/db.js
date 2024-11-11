@@ -1,12 +1,12 @@
 // backend/db.js
 const { Pool } = require('pg');
 
-// Configure your PostgreSQL database connection
+// Configure PostgreSQL database connection
 const pool = new Pool({
-  user: 'postgres',            // Your PostgreSQL username
-  host: 'localhost',           // Your PostgreSQL server
-  database: 'payroll_management', // Replace with your database name
-  password: 'new_password',   // Replace with your password
+  user: 'postgres',            // PostgreSQL username
+  host: 'localhost',           // PostgreSQL server
+  database: 'payroll_management', // Database name
+  password: 'new_password',   // Password
   port: 5432,                  // Default PostgreSQL port
 });
 

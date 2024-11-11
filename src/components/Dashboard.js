@@ -15,7 +15,7 @@ const Dashboard = () => (
             <button>Add New Employee</button>
             <button>Remove Employee</button>
             <button>View Employees</button>
-            <button>Process Payroll</button>
+            <button>Procepss Payroll</button>
             <button>View Reports</button>
           </div>
         </section>

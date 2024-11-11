@@ -1,6 +1,7 @@
 // src/components/Home.js
 import React from 'react';
 import Sidebar from './Sidebar';
+import './styles.css';
 
 const Home = () => (
   <div className="main">

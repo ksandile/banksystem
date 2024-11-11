@@ -1,5 +1,6 @@
 // src/components/Signup.js
 import React from 'react';
+import './styles.css';
 
 const Signup = () => (
   <div className="container">

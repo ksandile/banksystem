@@ -1,6 +1,8 @@
 // src/components/Dashboard.js
 import React from 'react';
 import Sidebar from './Sidebar';
+import './styles.css';
+
 
 const Dashboard = () => (
   <div className="dashboard-container">

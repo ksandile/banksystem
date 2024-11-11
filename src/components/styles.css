@@ -1,19 +1,179 @@
-/* Temporary styling */
-.dashboard-container {
-  display: flex;
-}
+body {font-family: "Lato", sans-serif;}
 
 .sidebar {
-  width: 200px;
-  background-color: #f4f4f4;
-  padding: 20px;
+  height: 100%;
+  width: 130px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #a42335;
+  overflow-x: hidden;
+  padding-top: 16px;
+  padding: 35px;
 }
 
-.main-content {
-  padding: 20px;
-  flex: 1;
+.links {
+  padding: 8px 8px 10px 8px;
+  border-radius: 5px;
+  background-color: #a42335;
+  border: none;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.action-buttons button {
-  margin: 10px 5px;
+.links:active {
+  opacity: 0.8;
+}
+
+.links:hover {
+  opacity: 0.9;
+}
+
+.sidebar img.logo {
+  width: 100%; /* Make logo take full width of sidebar */
+  height: auto; /* Maintain aspect ratio */
+  padding: 10px 0; /* Add padding for spacing */
+}
+
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #ffffff;
+  display: block;
+}
+
+.sidebar a:hover {
+  color: #8a4949;
+}
+
+.main1 {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  padding: 0px 10px;
+}
+.wrapper-main{
+    width: 1000px;
+    margin: 0  auto;
+    padding-top: 70px;
+    
+    
+  }
+  .wrapper-main {
+    position: relative; /* Create a positioning context for the pseudo-element */
+    z-index: 1; /* Ensure text is above the background */
+}
+
+.wrapper-main::before {
+    content: ""; /* Required for pseudo-element */
+    position: absolute; /* Position it absolutely within the wrapper */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #a42335;
+   /* background-image: url('absa.jpg');  Path to your image */
+    /*background-size: cover; /* Ensure the image covers the entire area */
+    /*filter: blur(10px); /* Apply blur effect */
+    /*z-index: -1; /* Place behind the text */
+}
+
+.wrapper-main section {
+    position: relative; /* Ensure sections are positioned relative to their parent */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for readability */
+    padding: 20px; 
+    border-radius: 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+button {
+  background-color: #a42335;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/*'''''''''''''''''''''''''''''''''''''''''''''''''' new stle''''''''''''''''''''''''''''''''''''''''''' */
+form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: auto;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="number"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #a42335;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ad4553; /* Darker blue on hover */
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 10px;
+  text-align: left;
+}
+
+table th {
+  background-color: #a42335; /* Header background */
+  color: white; /* Header text color */
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Zebra striping */
+}
+/* Responsive Design */
+@media (max-width: 600px) {
+  nav a {
+      display: block; /* Stack links on small screens */
+      margin-bottom: 10px; /* Space between links */
+      text-align: center; /* Center align links */
+  }
+
+  form {
+      width: calc(100% - 40px); /* Adjust form width on small screens */
+      margin-top: 20px; /* Add space above form */
+      padding-left: 10px; /* Add padding to the left for smaller screens */
+      padding-right: 10px; /* Add padding to the right for smaller screens */
+      box-shadow: none; /* Remove shadow on small screens for simplicity */
+      border-radius: 0; /* Remove border radius on small screens for full width */
+      background-color:#ffffff; /* Set background color to white for better visibility */
+      position:absolute; /* Position the form absolutely to avoid overflow*/
+      top:-30%; /* Move the form up to fit in the viewport*/
+      left:-50%; /* Center the form horizontally*/
+      transform : translate(-50%, -50%); /* Center the form vertically*/
+      
+    }
 }

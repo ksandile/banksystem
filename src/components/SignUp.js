@@ -36,7 +36,7 @@ const Signup = () => (
             <i className="fas fa-lock"></i>
             <input type="password" placeholder="Confirm password" />
           </div>
-          <button type="submit" className="newww">Silgn Up</button>
+          <button type="submit" className="newww">Sign Up</button>
         </form>
       </div>
     </div>

@@ -7,7 +7,6 @@ const Sidebar = ({ isLoggedIn, onLogout }) => {
     <div className="sidebar">
       <img src="logo.png" alt="Logo" className="logo" />
 
-      {/* Links before login */}
       {!isLoggedIn ? (
         <>
           <Link to="/dashboard" style={{ fontWeight: 'bold' }}>Dashboard</Link>
@@ -16,7 +15,6 @@ const Sidebar = ({ isLoggedIn, onLogout }) => {
           <button className="logout-btn" onClick={onLogout}>Logout</button>
         </>
       ) : (
-        // Links after login
 
         <>
           <Link to="/" style={{ fontWeight: 'bold' }}>Home</Link>

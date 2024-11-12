@@ -66,7 +66,11 @@ const ManageEmployees = () => {
     const resetForm = () => {
         setFormData({
             name: '',
+            surname: '',
             email: '',
+            phone_number: '',
+            hire_date: '',
+            account_number: '',
             jobTitle: '',
             salary: '',
             idNumber: ''
@@ -117,6 +121,22 @@ const ManageEmployees = () => {
                                 type="text"
                                 name="idNumber"
                                 placeholder="ID Number"
+                                value={formData.idNumber}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="hire_date"
+                                placeholder="date"
+                                value={formData.idNumber}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="account_number"
+                                placeholder="Acount Number"
                                 value={formData.idNumber}
                                 onChange={handleChange}
                                 required

@@ -15,7 +15,7 @@ app.post('/api/employees', async (req, res) => {
   const { first_name, last_name, email, phone_number, hire_date, salary } = req.body;
   try {
     const newEmployee = await pool.query(
-      `INSERT INTO employees (first_name, last_name, email, phone_number, hire_date, salary) 
+      `INSERT INTO employees (first_name, last_name, email, phone_number, id_number, jobTitle, hire_date, salary, account_number) 
        VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
       [first_name, last_name, email, phone_number, hire_date, salary]
     );

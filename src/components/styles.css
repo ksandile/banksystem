@@ -13,6 +13,24 @@ body {font-family: "Lato", sans-serif;}
   padding: 35px;
 }
 
+.sidebar img.logo {
+  width: 100%; /* Make logo take full width of sidebar */
+  height: auto; /* Maintain aspect ratio */
+  padding: 10px 0; /* Add padding for spacing */
+}
+
+.sidebar a:hover {
+  color: #8a4949;
+}
+
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #ffffff;
+  display: block;
+}
+
 .links {
   padding: 8px 8px 10px 8px;
   border-radius: 5px;
@@ -32,31 +50,29 @@ body {font-family: "Lato", sans-serif;}
   opacity: 0.9;
 }
 
-.sidebar img.logo {
-  width: 100%; /* Make logo take full width of sidebar */
-  height: auto; /* Maintain aspect ratio */
-  padding: 10px 0; /* Add padding for spacing */
+
+/* Assuming your buttons are inside the Sidebar component */
+.sidebar button {
+  margin-bottom: 10px;  /* Adds space between buttons */
 }
 
-.sidebar a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #ffffff;
-  display: block;
+/* Or if you want to target buttons directly inside the Home component */
+main button {
+  margin-bottom: 10px;  /* Adds space between buttons in the main content */
 }
+
 
 .sidebar a:hover {
   color: #8a4949;
 }
 
 .wrapper-main {
-    width: 85%;
+    width: 80%;
     margin: 0  auto;
     padding-top: 70px; 
   }
   .wrapper-main {
-    position: relative;
+    /* position: relative; */
     z-index: 1;
 }
 
@@ -68,20 +84,18 @@ body {font-family: "Lato", sans-serif;}
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #a42335;
+    background-color: #c25462;
 }
 
 .wrapper-main section {
     position: relative; /* Ensure sections are positioned relative to their parent */
     background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for readability */
-    padding: 20px; 
-    border-radius: 10px;
+    padding: 20px;
+    padding-left: 70px; 
+    border-radius: 0;
 }
 
-@media screen and (max-height: 450px) {
-  .sidebar {padding-top: 15px;}
-  .sidebar a {font-size: 18px;}
-}
+/* Button styles */
 button {
   background-color: #a42335;
   color: white;
@@ -89,7 +103,39 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 15px; /* Space between buttons */
+  width: 100%; /* Ensure buttons span full width */
 }
+
+button:hover {
+  background-color: #ad4553; /* Darker color on hover */
+}
+
+.logout-btn {
+  font-size: 20px;
+  font-weight: bold;
+  background-color: azure;
+  color: red; /* Change text color to red */
+}
+
+/* Styles for feature buttons in the main section */
+.feature-button {
+  margin-bottom: 15px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adds space between buttons */
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+
+
 
 /*'''''''''''''''''''''''''''''''''''''''''''''''''' new stle''''''''''''''''''''''''''''''''''''''''''' */
 form {

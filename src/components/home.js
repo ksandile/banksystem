@@ -11,6 +11,7 @@ const Home = () => (
         <section>
           <h2>About Our System</h2>
           <p>The Payroll Management System by ABSA is designed to help businesses manage employee payroll efficiently...</p>
+          
           <h2>Additional Key Features</h2>
           <ul>
             <li>User authentication for secure access</li>
@@ -20,6 +21,11 @@ const Home = () => (
             <li>Tax calculation and compliance tracking</li>
             <li>Comprehensive reporting and analytics tools</li>
           </ul>
+
+          <div className="button-container">
+            <button className="feature-button">Request More Info</button>
+            <button className="feature-button">Sign Up</button>
+          </div>
         </section>
       </div>
     </main>

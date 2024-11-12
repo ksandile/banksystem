@@ -1,15 +1,15 @@
-// src/components/Signup.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
 
-const Signup = () => {
+const Signup = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const handleSignIn = (e) => {
     e.preventDefault();
     // Add authentication logic here if needed
-    navigate('/dashboard');
+    onLogin(); // Update the login state
+    navigate('/dashboard'); // Navigate to the dashboard after successful login
   };
 
   return (

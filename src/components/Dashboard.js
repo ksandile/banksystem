@@ -14,9 +14,7 @@ const Dashboard = () => (
           <h2>Balance: R507 009.98</h2>
           <h2>Dashboard</h2>
           <div className="action-buttons">
-            <button>Add New Employee</button>
-            <button>Remove Employee</button>
-            <button>View Employees</button>
+            <button>Manage Employees</button>
             <button>Process Payroll</button>
             <button>View Reports</button>
           </div>

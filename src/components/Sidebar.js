@@ -16,7 +16,7 @@ const Sidebar = () => {
         // Links for logged-in users on the Dashboard page
         <>
           <Link to="/" style={{ fontWeight: 'bold' }}>Home</Link>
-          <Link to="/manage-employees" style={{ fontWeight: 'bold' }}>Manage Employees</Link>
+          <Link to="/manage-employee" style={{ fontWeight: 'bold' }}>Manage Employees</Link>
           <Link to="/process-payroll" style={{ fontWeight: 'bold' }}>Process Payroll</Link>
           <Link to="/home" style={{ fontWeight: 'bold' }}>Logout</Link>
         </>

@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Signup from './components/SignUp';
 import Dashboard from './components/Dashboard';
 import Sidebar from './components/Sidebar';
+import ManageEmployees from './components/ManageEmployee';
 import './components/styles.css';
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup onLogin={() => setIsLoggedIn(true)} />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/manage-employees" element={<ManageEmployees />} /> {/* Add this route */}
       </Routes>
     </Router>
   );

@@ -1,9 +1,9 @@
-// src/components/Reports.js
+// src/components/EmployeeReports.js
 import React from 'react';
-import Sidebar from './Sidebar';
-import './styles.css';
+import Sidebar from '../side/Sidebar.jsx';
+import '../../styles.css';
 
-const SalariesReport = () => {
+const EmployeeReports = () => {
     return (
         <div className="main">
             <Sidebar />
@@ -11,25 +11,23 @@ const SalariesReport = () => {
                 <div className="wrapper-main">
                     <section id="reports-section">
                         <h2>Reports Overview</h2>
-                        <p>Select a report type to view detailed information.</p>
 
                         {/* Example report types */}
                         <div className="report-types">
-                            <a className="links" href="./salary.html">Salary Report</a>
+                            <a className="links" href="./employee.html">Employee Report</a>
                         </div>
 
                         {/* Placeholder for displaying selected report */}
                         <div id="report-display" style={{ marginTop: '20px' }}>
                             {/* Dynamic content will be injected here */}
-                            <h3 id="report-title">Employee List</h3>
-                            <table id="report-table">
+                            <h3 id="report-title">Payroll History</h3>
+                            
+                            <table id="payroll-history">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Job Title</th>
-                                        <th>Salary</th>
-                                        <th>ID Number</th>
+                                        <th>Date</th>
+                                        <th>Employee Name</th>
+                                        <th>Amount Paid</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,4 +43,4 @@ const SalariesReport = () => {
     );
 };
 
-export default SalariesReport;
+export default EmployeeReports;

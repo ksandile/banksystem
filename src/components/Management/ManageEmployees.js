@@ -1,7 +1,7 @@
-// src/components/ManageEmployees.js
-import React, { useEffect, useState } from 'react';
-import Sidebar from './Sidebar';
-import './styles.css';
+import React, { useState, useEffect } from 'react';
+import Sidebar from '../side/Sidebar';
+import '../../styles.css';
+import './manageemployee.css'; // Import the new CSS file
 
 const ManageEmployees = () => {
     const [employees, setEmployees] = useState([]);
@@ -10,7 +10,9 @@ const ManageEmployees = () => {
         email: '',
         jobTitle: '',
         salary: '',
-        idNumber: ''
+        idNumber: '',
+        hire_date: '',
+        account_number: ''
     });
     const [currentEditIndex, setCurrentEditIndex] = useState(null);
 
@@ -66,25 +68,23 @@ const ManageEmployees = () => {
     const resetForm = () => {
         setFormData({
             name: '',
-            surname: '',
             email: '',
-            phone_number: '',
-            hire_date: '',
-            account_number: '',
             jobTitle: '',
             salary: '',
-            idNumber: ''
+            idNumber: '',
+            hire_date: '',
+            account_number: ''
         });
     };
 
     return (
-        <div className="main">
+        <div className="manage-employees-container">
             <Sidebar />
             <main>
-                <div className="wrapper-main">
-                    <section>
-                        <h2>Add New Employee</h2>
-                        <form id="employee-form" onSubmit={handleSubmit}>
+                <div className="manage-employees-wrapper">
+                    <section className="employee-form-section">
+                        <h2>{currentEditIndex !== null ? 'Edit Employee' : 'Add New Employee'}</h2>
+                        <form id="employee-form" className="employee-form" onSubmit={handleSubmit}>
                             <input
                                 type="text"
                                 name="name"
@@ -92,6 +92,7 @@ const ManageEmployees = () => {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
+                                className="form-input"
                             />
                             <input
                                 type="email"
@@ -100,6 +101,7 @@ const ManageEmployees = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
+                                className="form-input"
                             />
                             <input
                                 type="text"
@@ -108,6 +110,7 @@ const ManageEmployees = () => {
                                 value={formData.jobTitle}
                                 onChange={handleChange}
                                 required
+                                className="form-input"
                             />
                             <input
                                 type="number"
@@ -116,6 +119,7 @@ const ManageEmployees = () => {
                                 value={formData.salary}
                                 onChange={handleChange}
                                 required
+                                className="form-input"
                             />
                             <input
                                 type="text"
@@ -124,28 +128,35 @@ const ManageEmployees = () => {
                                 value={formData.idNumber}
                                 onChange={handleChange}
                                 required
+                                className="form-input"
                             />
                             <input
                                 type="text"
                                 name="hire_date"
-                                placeholder="date"
-                                value={formData.idNumber}
+                                placeholder="Hire Date"
+                                value={formData.hire_date}
                                 onChange={handleChange}
                                 required
+                                className="form-input"
                             />
                             <input
                                 type="text"
                                 name="account_number"
-                                placeholder="Acount Number"
-                                value={formData.idNumber}
+                                placeholder="Account Number"
+                                value={formData.account_number}
                                 onChange={handleChange}
                                 required
+                                className="form-input"
                             />
-                            <button type="submit">Add Employee</button>
+                            <button type="submit" className="submit-btn">
+                                {currentEditIndex !== null ? 'Update Employee' : 'Add Employee'}
+                            </button>
                         </form>
+                    </section>
 
+                    <section className="employee-list-section">
                         <h2>Employee List</h2>
-                        <table id="employee-list">
+                        <table className="employee-list-table">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -165,8 +176,8 @@ const ManageEmployees = () => {
                                         <td>{employee.salary}</td>
                                         <td>{employee.idNumber}</td>
                                         <td>
-                                            <button onClick={() => editEmployee(index)}>Update</button>
-                                            <button onClick={() => deleteEmployee(index)}>Delete</button>
+                                            <button className="edit-btn" onClick={() => editEmployee(index)}>Update</button>
+                                            <button className="delete-btn" onClick={() => deleteEmployee(index)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))}

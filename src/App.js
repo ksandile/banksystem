@@ -1,39 +1,84 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Home';
-import Signup from './components/SignUp';
-import Dashboard from './components/Dashboard';
-import Sidebar from './components/Sidebar';
-import ManageEmployees from './components/ManageEmployee';
-import ProcessPayroll from './components/ProcessPayroll';
-import './components/styles.css';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, Routes, Route, Navigate } from 'react-router-dom';
+import Sidebar from './components/side/Sidebar';
+import About from './components/Pages/About';
+import SignUp from './components/Forms/SignUp';
+import SignIn from './components/Forms/SignIn';
+import Dashboard from './components/Dashboard/Dashboard';
+import ManageEmployees from './components/Management/ManageEmployees';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    setIsLoggedIn(true); // Set the login state to true after a successful sign-in
+  useEffect(() => {
+    // Check authentication status on page load
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleAuthentication = () => {
+    setIsAuthenticated(true); // Update auth state after successful login
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false); // Set the login state to false when logging out
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('balance');
+    setIsAuthenticated(false);
+  };
+
+  // Handle "Add New Employee" navigation
+  const handleManageEmployeesNavigation = () => {
+    navigate('/manage-employees'); // Navigate to ManageEmployees page
   };
 
   return (
-    <Router>
-      {/* Sidebar is always visible */}
-      <Sidebar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-      
+    <div className="app">
+      {/* Wait until the auth state is checked before rendering Sidebar */}
+      {isAuthenticated !== null && (
+        <Sidebar
+          isAuthenticated={isAuthenticated}
+          onSignOut={handleSignOut}
+          onManageEmployees={handleManageEmployeesNavigation} // Pass navigation function here
+        />
+      )}
       <div className="main-content">
+        {/* Routes */}
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
-          <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Home />} />
-          <Route path="/manage-employees" element={isLoggedIn ? <ManageEmployees /> : <Home />} />
-          <Route path="/processpayroll" element={isLoggedIn ? <ProcessPayroll /> : <Home />} />
+          <Route path="/" element={<Navigate to="/about" />} />
+          <Route path="/about" element={<About />} />
+          
+          {/* Dashboard is protected: only accessible when authenticated */}
+          <Route
+            path="/dashboard"
+            element={isAuthenticated ? <Dashboard /> : <Navigate to="/signin" />}
+          />
+          
+          {/* ManageEmployees route */}
+          <Route path="/manageemployees" element={isAuthenticated ? <ManageEmployees /> : <Navigate to="/signin" />} />
+
+          {/* SignUp and SignIn pages only visible if not authenticated */}
+          {!isAuthenticated ? (
+            <>
+              <Route path="/register" element={<SignUp />} />
+              <Route
+                path="/signin"
+                element={<SignIn onSignIn={handleAuthentication} />}
+              />
+            </>
+          ) : (
+            // Redirect authenticated users away from SignIn and SignUp
+            <>
+              <Route path="/signin" element={<Navigate to="/dashboard" />} />
+              <Route path="/register" element={<Navigate to="/dashboard" />} />
+            </>
+          )}
         </Routes>
       </div>
-    </Router>
+    </div>
   );
 };
 

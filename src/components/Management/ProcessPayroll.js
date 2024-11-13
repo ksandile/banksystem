@@ -1,7 +1,6 @@
-// src/components/ProcessPayroll.js
-import React, { useEffect, useState } from 'react';
-import Sidebar from './Sidebar';
-import './styles.css';
+import React, { useState, useEffect } from 'react';
+import Sidebar from '../side/Sidebar';
+import '../../styles.css';
 
 const ProcessPayroll = () => {
     const [employees, setEmployees] = useState([]);

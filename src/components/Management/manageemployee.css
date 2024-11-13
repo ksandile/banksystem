@@ -1,0 +1,120 @@
+/* Manage Employees Section */
+.manage-employees-container {
+    display: flex;
+    background-color: #f4f4f4;
+    padding-left: 220px;
+}
+
+.manage-employees-wrapper {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.employee-form-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.employee-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.submit-btn {
+    background-color: #a42335;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.submit-btn:hover {
+    background-color: #ad4553;
+}
+
+/* Employee List Section */
+.employee-list-section {
+    background-color: #ffffff;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.employee-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.employee-list-table th, .employee-list-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.employee-list-table th {
+    background-color: #a42335;
+    color: white;
+}
+
+.employee-list-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.edit-btn, .delete-btn {
+    background-color: #a42335;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    background-color: #ad4553;
+}
+
+.delete-btn {
+    background-color: #c82333;
+}
+
+.delete-btn:hover {
+    background-color: #e74c3c;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .manage-employees-wrapper {
+        width: 95%;
+    }
+
+    .employee-form {
+        width: 100%;
+    }
+
+    .employee-list-table th, .employee-list-table td {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}

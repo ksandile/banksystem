@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../side/Sidebar';
 import '../../styles.css';
 
-const ProcessPayroll = () => {
+const ProcessPayroll = ({ isAuthenticated }) => {
     const [employees, setEmployees] = useState([]);
     const [payrollData, setPayrollData] = useState({
         date: '',
@@ -59,7 +59,7 @@ const ProcessPayroll = () => {
 
     return (
         <div className="main">
-            <Sidebar />
+            <Sidebar isAuthenticated={isAuthenticated} />
             <main>
                 <div className="wrapper-main">
                     <section id="payroll-section">

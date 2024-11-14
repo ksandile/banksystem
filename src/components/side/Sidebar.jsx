@@ -1,34 +1,50 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import the useNavigate hook for navigation
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Sidebar = ({ isAuthenticated, onSignOut }) => {
-  const navigate = useNavigate(); // Use the useNavigate hook to handle navigation
+  const navigate = useNavigate();
+  const location = useLocation();  // Get the current location (route)
 
-  // Function to handle navigation logic
   const handleNavigate = (page) => {
-    // Navigate to the specified page
     navigate(`/${page}`);
   };
-  
+
+  const isActive = (path) => location.pathname === `/${path}` ? 'active' : '';
 
   return (
     <div className="sidebar">
       <ul>
-        <li>
-          <button onClick={() => handleNavigate('dashboard')}>Dashboard</button>
-        </li>
+        {/* Check if user is authenticated */}
         {isAuthenticated && (
-          <li>
-            <button onClick={() => handleNavigate('manageEmployees')}>Manage Employees</button>
-          </li>
-        )}
-        {!isAuthenticated ? (
           <>
-            <li><button onClick={() => handleNavigate('signin')}>Sign In</button></li>
-            <li><button onClick={() => handleNavigate('register')}>Register</button></li>
+            <li className={isActive('dashboard')}>
+              <button onClick={() => handleNavigate('dashboard')}>Dashboard</button>
+            </li>
+            <li className={isActive('manageemployees')}>
+              <button onClick={() => handleNavigate('manageemployees')}>Manage Employees</button>
+            </li>
+            <li className={isActive('processPayroll')}>
+              <button onClick={() => handleNavigate('processPayroll')}>Process Payroll</button>
+            </li>
+            <li className={isActive('viewReports')}>
+              <button onClick={() => handleNavigate('viewReports')}>View Reports</button>
+            </li>
+            <li>
+              <button onClick={onSignOut}>Logout</button>
+            </li>
           </>
-        ) : (
-          <li><button onClick={onSignOut}>Sign Out</button></li>
+        )}
+
+        {/* If user is not authenticated, show Sign In and Register links */}
+        {!isAuthenticated && (
+          <>
+            <li className={isActive('signin')}>
+              <button onClick={() => handleNavigate('signin')}>Sign In</button>
+            </li>
+            <li className={isActive('register')}>
+              <button onClick={() => handleNavigate('register')}>Register</button>
+            </li>
+          </>
         )}
       </ul>
     </div>

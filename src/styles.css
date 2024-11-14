@@ -19,6 +19,12 @@ body {font-family: "Lato", sans-serif;}
   padding: 10px 0; /* Add padding for spacing */
 }
 
+.sidebar ul li.active button {
+  background-color: #007bff;
+  color: white;
+}
+
+
 .sidebar a:hover {
   color: #8a4949;
 }

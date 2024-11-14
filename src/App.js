@@ -1,76 +1,94 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Routes, Route, Navigate } from 'react-router-dom';
+import { useNavigate, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Sidebar from './components/side/Sidebar';
 import About from './components/Pages/About';
 import SignUp from './components/Forms/SignUp';
 import SignIn from './components/Forms/SignIn';
 import Dashboard from './components/Dashboard/Dashboard';
 import ManageEmployees from './components/Management/ManageEmployees';
+import ProcessPayroll from './components/Management/ProcessPayroll';
+import Reports from './components/Management/Reports';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    // Check authentication status on page load
     const token = localStorage.getItem('token');
     if (token) {
       setIsAuthenticated(true);
+    } else {
+      navigate('/signin');
     }
-  }, []);
+  }, [navigate]);
 
   const handleAuthentication = () => {
-    setIsAuthenticated(true); // Update auth state after successful login
+    setIsAuthenticated(true);
+    navigate('/dashboard');
   };
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('balance');
     setIsAuthenticated(false);
-  };
-
-  // Handle "Add New Employee" navigation
-  const handleManageEmployeesNavigation = () => {
-    navigate('/manage-employees'); // Navigate to ManageEmployees page
+    navigate('/signin');
   };
 
   return (
     <div className="app">
-      {/* Wait until the auth state is checked before rendering Sidebar */}
-      {isAuthenticated !== null && (
+      {isAuthenticated && (
         <Sidebar
           isAuthenticated={isAuthenticated}
           onSignOut={handleSignOut}
-          onManageEmployees={handleManageEmployeesNavigation} // Pass navigation function here
+          currentPage={location.pathname} // Pass current path to Sidebar
         />
       )}
       <div className="main-content">
-        {/* Routes */}
         <Routes>
           <Route path="/" element={<Navigate to="/about" />} />
           <Route path="/about" element={<About />} />
-          
-          {/* Dashboard is protected: only accessible when authenticated */}
+
           <Route
             path="/dashboard"
             element={isAuthenticated ? <Dashboard /> : <Navigate to="/signin" />}
           />
-          
-          {/* ManageEmployees route */}
-          <Route path="/manageemployees" element={isAuthenticated ? <ManageEmployees /> : <Navigate to="/signin" />} />
+          <Route
+            path="/manageemployees"
+            element={
+              isAuthenticated ? (
+                <ManageEmployees isAuthenticated={isAuthenticated} onSignOut={handleSignOut} />
+              ) : (
+                <Navigate to="/signin" />
+              )
+            }
+          />
+          <Route
+            path="/processPayroll"
+            element={
+              isAuthenticated ? (
+                <ProcessPayroll isAuthenticated={isAuthenticated} onSignOut={handleSignOut} />
+              ) : (
+                <Navigate to="/signin" />
+              )
+            }
+          />
+          <Route
+            path="/viewReports"
+            element={
+              isAuthenticated ? (
+                <Reports isAuthenticated={isAuthenticated} onSignOut={handleSignOut} />
+              ) : (
+                <Navigate to="/signin" />
+              )
+            }
+          />
 
-          {/* SignUp and SignIn pages only visible if not authenticated */}
           {!isAuthenticated ? (
             <>
               <Route path="/register" element={<SignUp />} />
-              <Route
-                path="/signin"
-                element={<SignIn onSignIn={handleAuthentication} />}
-              />
+              <Route path="/signin" element={<SignIn onSignIn={handleAuthentication} />} />
             </>
           ) : (
-            // Redirect authenticated users away from SignIn and SignUp
             <>
               <Route path="/signin" element={<Navigate to="/dashboard" />} />
               <Route path="/register" element={<Navigate to="/dashboard" />} />

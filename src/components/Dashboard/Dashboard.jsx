@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../side/Sidebar';
-import './Dashboard.css';  // Make sure to import the CSS file
+import './Dashboard.css';
 
 const Dashboard = () => {
   const [username, setUsername] = useState('');
   const [balance, setBalance] = useState('');
-  const navigate = useNavigate(); // Initialize the navigate hook
+  const navigate = useNavigate();
 
-  // Fetch user data from localStorage when the component mounts
   useEffect(() => {
     const storedUsername = localStorage.getItem('username');
     const storedBalance = localStorage.getItem('balance');
@@ -19,14 +18,21 @@ const Dashboard = () => {
     }
   }, []);
 
-  // Function to navigate to ManageEmployees page
   const handleAddNewEmployee = () => {
-    navigate('/manageEmployees'); // Redirect to the ManageEmployees page
+    navigate('/manageEmployees');
+  };
+
+  const handleProcessPayroll = () => {
+    navigate('/processPayroll');
+  };
+
+  const handleViewReports = () => {
+    navigate('/viewReports');
   };
 
   return (
     <div className="main-dashboard">
-      <Sidebar />
+      <Sidebar isAuthenticated={true} />
       <main>
         <div className="wrapper-main-dash">
           <section id="quick-actions">
@@ -34,11 +40,9 @@ const Dashboard = () => {
             <p className="balance">Balance: {balance || 'R0.00'}</p>
             <h2>Dashboard</h2>
             <div className="action-buttons">
-              {/* Button to navigate to ManageEmployees */}
               <button onClick={handleAddNewEmployee}>Add New Employee</button>
-              <button>View Employees</button>
-              <button>Process Payroll</button>
-              <button>View Reports</button>
+              <button onClick={handleProcessPayroll}>Process Payroll</button>
+              <button onClick={handleViewReports}>View Reports</button>
             </div>
           </section>
         </div>

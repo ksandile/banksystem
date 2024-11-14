@@ -1,28 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../side/Sidebar';
 import '../../styles.css';
-import './manageemployee.css'; // Import the new CSS file
+import './manageemployee.css';
 
-const ManageEmployees = () => {
+const ManageEmployees = ({ isAuthenticated, onSignOut }) => {
     const [employees, setEmployees] = useState([]);
     const [formData, setFormData] = useState({
-        name: '',
+        first_name: '',
+        last_name: '',
         email: '',
-        jobTitle: '',
+        job_title: '',
         salary: '',
-        idNumber: '',
+        id_number: '',
         hire_date: '',
         account_number: ''
     });
     const [currentEditIndex, setCurrentEditIndex] = useState(null);
 
+    // Fetch employees on initial load
     useEffect(() => {
         loadEmployees();
     }, []);
 
-    const loadEmployees = () => {
-        const storedEmployees = JSON.parse(localStorage.getItem('employees')) || [];
-        setEmployees(storedEmployees);
+    const loadEmployees = async () => {
+        try {
+            const response = await fetch('http://localhost:5001/api/getEmployees');
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error('Failed to fetch employees');
+            }
+            const data = await response.json();
+            console.log('Employees data:', data); // Log the data to verify structure
+
+            // Ensure the data is an array before setting it to state
+            setEmployees(Array.isArray(data) ? data : []);
+        } catch (error) {
+            console.error('Error loading employees:', error);
+        }
     };
 
     const handleChange = (e) => {
@@ -30,27 +44,49 @@ const ManageEmployees = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (currentEditIndex !== null) {
-            updateEmployee();
+            await updateEmployee();
         } else {
-            addEmployee();
+            await addEmployee();
         }
         resetForm();
     };
 
-    const addEmployee = () => {
-        const updatedEmployees = [...employees, formData];
-        localStorage.setItem('employees', JSON.stringify(updatedEmployees));
-        setEmployees(updatedEmployees);
+    const addEmployee = async () => {
+        try {
+            const response = await fetch('http://localhost:5001/api/addEmployee', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            const newEmployee = await response.json();
+            setEmployees([...employees, newEmployee]);
+        } catch (error) {
+            console.error('Error adding employee:', error);
+        }
     };
 
-    const updateEmployee = () => {
-        const updatedEmployees = [...employees];
-        updatedEmployees[currentEditIndex] = formData;
-        localStorage.setItem('employees', JSON.stringify(updatedEmployees));
-        setEmployees(updatedEmployees);
+    const updateEmployee = async () => {
+        try {
+            const response = await fetch('http://localhost:5001/api/updateEmployee', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...formData, id: employees[currentEditIndex].id }), // Pass the employee id to update
+            });
+            const updatedEmployee = await response.json();
+            const updatedEmployees = employees.map((emp, index) =>
+                index === currentEditIndex ? updatedEmployee : emp
+            );
+            setEmployees(updatedEmployees);
+        } catch (error) {
+            console.error('Error updating employee:', error);
+        }
         setCurrentEditIndex(null);
     };
 
@@ -59,19 +95,28 @@ const ManageEmployees = () => {
         setCurrentEditIndex(index);
     };
 
-    const deleteEmployee = (index) => {
-        const updatedEmployees = employees.filter((_, i) => i !== index);
-        localStorage.setItem('employees', JSON.stringify(updatedEmployees));
-        setEmployees(updatedEmployees);
+    const deleteEmployee = async (index) => {
+        try {
+            const response = await fetch(`http://localhost:5001/api/deleteEmployee/${employees[index].id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                const updatedEmployees = employees.filter((_, i) => i !== index);
+                setEmployees(updatedEmployees);
+            }
+        } catch (error) {
+            console.error('Error deleting employee:', error);
+        }
     };
 
     const resetForm = () => {
         setFormData({
-            name: '',
+            first_name: '',
+            last_name: '',
             email: '',
-            jobTitle: '',
+            job_title: '',
             salary: '',
-            idNumber: '',
+            id_number: '',
             hire_date: '',
             account_number: ''
         });
@@ -79,7 +124,7 @@ const ManageEmployees = () => {
 
     return (
         <div className="manage-employees-container">
-            <Sidebar />
+            <Sidebar isAuthenticated={isAuthenticated} onSignOut={onSignOut} />
             <main>
                 <div className="manage-employees-wrapper">
                     <section className="employee-form-section">
@@ -87,9 +132,18 @@ const ManageEmployees = () => {
                         <form id="employee-form" className="employee-form" onSubmit={handleSubmit}>
                             <input
                                 type="text"
-                                name="name"
-                                placeholder="Employee Name"
-                                value={formData.name}
+                                name="first_name"
+                                placeholder="First Name"
+                                value={formData.first_name}
+                                onChange={handleChange}
+                                required
+                                className="form-input"
+                            />
+                            <input
+                                type="text"
+                                name="last_name"
+                                placeholder="Last Name"
+                                value={formData.last_name}
                                 onChange={handleChange}
                                 required
                                 className="form-input"
@@ -105,9 +159,9 @@ const ManageEmployees = () => {
                             />
                             <input
                                 type="text"
-                                name="jobTitle"
+                                name="job_title"
                                 placeholder="Job Title"
-                                value={formData.jobTitle}
+                                value={formData.job_title}
                                 onChange={handleChange}
                                 required
                                 className="form-input"
@@ -123,9 +177,9 @@ const ManageEmployees = () => {
                             />
                             <input
                                 type="text"
-                                name="idNumber"
+                                name="id_number"
                                 placeholder="ID Number"
-                                value={formData.idNumber}
+                                value={formData.id_number}
                                 onChange={handleChange}
                                 required
                                 className="form-input"
@@ -168,19 +222,25 @@ const ManageEmployees = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {employees.map((employee, index) => (
-                                    <tr key={index}>
-                                        <td>{employee.name}</td>
-                                        <td>{employee.email}</td>
-                                        <td>{employee.jobTitle}</td>
-                                        <td>{employee.salary}</td>
-                                        <td>{employee.idNumber}</td>
-                                        <td>
-                                            <button className="edit-btn" onClick={() => editEmployee(index)}>Update</button>
-                                            <button className="delete-btn" onClick={() => deleteEmployee(index)}>Delete</button>
-                                        </td>
+                                {Array.isArray(employees) && employees.length > 0 ? (
+                                    employees.map((employee, index) => (
+                                        <tr key={employee.id}>
+                                            <td>{employee.first_name} {employee.last_name}</td>
+                                            <td>{employee.email}</td>
+                                            <td>{employee.job_title}</td>
+                                            <td>{employee.salary}</td>
+                                            <td>{employee.id_number}</td>
+                                            <td>
+                                                <button onClick={() => editEmployee(index)} className="edit-btn">Edit</button>
+                                                <button onClick={() => deleteEmployee(index)} className="delete-btn">Delete</button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="6">No employees available</td>
                                     </tr>
-                                ))}
+                                )}
                             </tbody>
                         </table>
                     </section>
